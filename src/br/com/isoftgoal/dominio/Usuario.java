@@ -50,9 +50,9 @@ import entities.descriptor.PropertyType;
           members = "Users[nomeCompleto; nomeDeUsuario; senha; email; gruposUsuarios]:2, *foto",
           template = "@CRUD+@PAGER",
           roles = "Admin"),
-    @View(name = "saida",
-          title = "br.com.isoftgoal.dominio.Usuario.view.saida.title",
-          members = "['':*foto, [Logout[msgSair; [sair(), cancelar()]]]]",
+    @View(name = "sair",
+          title = "br.com.isoftgoal.dominio.Usuario.view.sair.title",
+          members = "['':*foto, [msgSair; [sair(), cancelar()]]]",
           namedQuery = "From Usuario u Where u = :nomeDeUsuario",
           params = {@Param(name = "nomeDeUsuario", value = "#{context.currentUser}")},
           roles = "LOGGED")
@@ -220,7 +220,7 @@ public class Usuario implements Serializable {
     }
 
     @ActionDescriptor(preValidate = false)
-    static public String sair() {
+    public String sair() {
         Context.clear();
         return GO_LOGIN;
     }
