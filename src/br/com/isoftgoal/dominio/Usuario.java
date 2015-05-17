@@ -93,12 +93,10 @@ public class Usuario implements Serializable {
     @Column(name="cod_usuario")
     private Integer codUsuario;
 
-    @NotEmpty
     @Column(name="nome_completo", length = 60)
     @PropertyDescriptor(displayWidth = 40)
     private String nomeCompleto;
 
-    @NotEmpty
     @Column(length = 30)
     private String email;
     

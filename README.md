@@ -1,4 +1,4 @@
 isoftgoal
 =========
 
-Ferramenta de Levantamento de Requisitos NÃ£o Funcionais.
+Ferramenta de Levantamento de Requisitos Não Funcionais.
