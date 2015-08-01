@@ -31,11 +31,20 @@ public class Projeto implements Serializable {
     //TODO: Incluir Status do Projeto e a Lista de Requisitos
     
     @NotNull
+    @Column(name="dt_cadastro")
     @Temporal(TemporalType.TIMESTAMP)
     private Date dtCadastro;
-    
+
+    @Column(name="dt_inicio")
     @Temporal(TemporalType.TIMESTAMP)
     private Date dtInicio;
 
+    @Column(name="dt_previsao_termino")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date dtPrevisaoTermino;
+    
+    @Column(name="dt_termino")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date dtTermino;
 
 }
