@@ -5,6 +5,7 @@ import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
@@ -23,5 +24,9 @@ public class Softgoal implements Serializable {
 	@Column(length = 80)
 	@PropertyDescriptor(displayWidth = 40)
 	private String nome;
+
+    @Lob
+    @NotEmpty
+    private String descricao;
 	 
 }
