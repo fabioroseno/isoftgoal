@@ -9,7 +9,18 @@ import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import entities.annotations.PropertyDescriptor;
+import entities.annotations.View;
+import entities.annotations.Views;
 
+@Entity
+@Table(name = "projetos")
+@Views({
+    @View(name = "cadastro",
+            title = "br.com.isoftgoal.dominio.Projeto.view.cadastro.title",
+            members = "Projetos[nome; descricao, dtCadastro, dtInicio, dtTermino]", 
+            template = "@CRUD+@PAGER",
+            roles = "Admin")
+})
 public class Projeto implements Serializable {
 
 	private static final long serialVersionUID = 1L;
