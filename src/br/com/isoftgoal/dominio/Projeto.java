@@ -8,16 +8,18 @@ import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
+import entities.annotations.Editor;
 import entities.annotations.PropertyDescriptor;
 import entities.annotations.View;
 import entities.annotations.Views;
+import entities.descriptor.PropertyType;
 
 @Entity
 @Table(name = "projetos")
 @Views({
-    @View(name = "cadastro",
-            title = "br.com.isoftgoal.dominio.Projeto.view.cadastro.title",
-            members = "Projetos[nome; descricao, dtCadastro, dtInicio, dtTermino]", 
+    @View(name = "projetos",
+            title = "br.com.isoftgoal.dominio.Projeto.view.projetos.title",
+            members = "Projetos[nome; descricao; dataCadastro; dataInicio; dataTermino]:2, *foto", 
             template = "@CRUD+@PAGER",
             roles = "Admin")
 })

@@ -18,8 +18,8 @@ import entities.annotations.Views;
 @Entity
 @Table(name = "softgoals")
 @Views({
-    @View(name = "cadastro",
-            title = "br.com.isoftgoal.dominio.Softgoal.view.cadastro.title",
+    @View(name = "softgoals",
+            title = "br.com.isoftgoal.dominio.Softgoal.view.softgoals.title",
             members = "Softgoals[nome; descricao]", 
             template = "@CRUD+@PAGER",
             roles = "Admin")
