@@ -19,7 +19,7 @@ import entities.descriptor.PropertyType;
 @Views({
     @View(name = "projetos",
             title = "br.com.isoftgoal.dominio.Projeto.view.projetos.title",
-            members = "Projetos[nome; descricao; dataCadastro; dataInicio; dataTermino]:2, *foto", 
+            members = "Projetos[nome; descricao; *dataCadastro; dataInicio; dataTermino]:2, foto", 
             template = "@CRUD+@PAGER",
             roles = "Admin")
 })
@@ -45,8 +45,9 @@ public class Projeto implements Serializable {
     
     @NotNull
     @Column(name="dt_cadastro")
+    @PropertyDescriptor(readOnly = true)
     @Temporal(TemporalType.TIMESTAMP)
-    private Date dataCadastro;
+    private Date dataCadastro = new Date();
 
     @Column(name="dt_inicio")
     @Temporal(TemporalType.TIMESTAMP)
