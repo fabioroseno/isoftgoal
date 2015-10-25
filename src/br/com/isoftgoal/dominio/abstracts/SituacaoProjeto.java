@@ -5,19 +5,30 @@ import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
-import entities.annotations.EntityDescriptor;
 import br.com.isoftgoal.dominio.Projeto;
 import br.com.isoftgoal.dominio.Usuario;
+import entities.Repository;
+import entities.annotations.EntityDescriptor;
 
 @Entity
 @Table(name = "situacoes_projeto")
+@NamedQueries({
+	@NamedQuery(name = "ChecarSituacao", query = " From SituacaoProjeto sp Where sp.codSituacaoProjeto = :codSituacaoProjeto ")})
 @EntityDescriptor(hidden = true)
 public abstract class SituacaoProjeto implements Serializable {
 
 	private static final long serialVersionUID = 1L;
+	
+	public SituacaoProjeto(Integer codSituacaoProjeto, String descricao) {
+		this.codSituacaoProjeto = codSituacaoProjeto;
+		this.descricao = descricao;
+//		Repository.save(this);
+	}
 
 	@Id
 	@Column(name = "cod_situacao_projeto")

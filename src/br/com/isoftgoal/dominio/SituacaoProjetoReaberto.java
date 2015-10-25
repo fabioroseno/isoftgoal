@@ -12,7 +12,7 @@ import br.com.isoftgoal.dominio.abstracts.SituacaoProjeto;
 public class SituacaoProjetoReaberto extends SituacaoProjeto {
 	
 	public SituacaoProjetoReaberto() {
-		this.setCodSituacaoProjeto(6);
+		super(6, "Reaberto");
 	}
 	
 	public SituacaoProjetoReaberto(Projeto projeto) {
