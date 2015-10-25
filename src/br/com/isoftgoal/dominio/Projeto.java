@@ -3,11 +3,22 @@ package br.com.isoftgoal.dominio;
 import java.io.Serializable;
 import java.util.Date;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
+import br.com.isoftgoal.dominio.abstracts.SituacaoProjeto;
+import entities.Context;
 import entities.annotations.Editor;
 import entities.annotations.PropertyDescriptor;
 import entities.annotations.View;
@@ -19,7 +30,7 @@ import entities.descriptor.PropertyType;
 @Views({
     @View(name = "projetos",
             title = "br.com.isoftgoal.dominio.Projeto.view.projetos.title",
-            members = "Projetos[nome; descricao; *dataCadastro; dataInicio; dataTermino]:2, foto", 
+            members = "Projetos[nome; descricao; situacaoProjeto; *dataCadastro; dataInicio; dataPrevisaoTermino; dataTermino]:2, foto", 
             template = "@CRUD+@PAGER",
             roles = "Admin")
 })
@@ -40,6 +51,16 @@ public class Projeto implements Serializable {
     @Lob
     @NotEmpty
     private String descricao;
+    
+    @NotNull
+    @ManyToOne
+	@JoinColumn(name="cod_situacao_projeto")
+    private SituacaoProjeto situacaoProjeto = new SituacaoProjetoAberto(this);
+    
+    @NotNull
+    @ManyToOne
+    @JoinColumn(name="cod_usuario_criador")
+    private Usuario usuarioCriador = (Usuario) Context.getCurrentUser();
 
     //TODO: Incluir Status do Projeto e a Lista de Requisitos
     
@@ -53,6 +74,7 @@ public class Projeto implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     private Date dataInicio;
 
+    @NotNull
     @Column(name="dt_previsao_termino")
     @Temporal(TemporalType.TIMESTAMP)
     private Date dataPrevisaoTermino;
@@ -87,6 +109,22 @@ public class Projeto implements Serializable {
 
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
+	}
+
+	public SituacaoProjeto getSituacaoProjeto() {
+		return situacaoProjeto;
+	}
+
+	public void setSituacaoProjeto(SituacaoProjeto situacaoProjeto) {
+		this.situacaoProjeto = situacaoProjeto;
+	}
+
+	public Usuario getUsuarioCriador() {
+		return usuarioCriador;
+	}
+
+	public void setUsuarioCriador(Usuario usuarioCriador) {
+		this.usuarioCriador = usuarioCriador;
 	}
 
 	public Date getDataCadastro() {
