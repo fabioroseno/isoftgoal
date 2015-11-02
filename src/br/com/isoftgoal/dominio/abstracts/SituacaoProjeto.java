@@ -27,7 +27,6 @@ public abstract class SituacaoProjeto implements Serializable {
 	public SituacaoProjeto(Integer codSituacaoProjeto, String descricao) {
 		this.codSituacaoProjeto = codSituacaoProjeto;
 		this.descricao = descricao;
-//		Repository.save(this);
 	}
 
 	@Id
