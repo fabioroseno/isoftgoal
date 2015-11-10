@@ -12,7 +12,6 @@ import javax.persistence.Transient;
 
 import br.com.isoftgoal.dominio.Projeto;
 import br.com.isoftgoal.dominio.Usuario;
-import entities.Repository;
 import entities.annotations.EntityDescriptor;
 
 @Entity
