@@ -3,6 +3,7 @@ package br.com.isoftgoal.dominio;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -32,7 +33,7 @@ import entities.descriptor.PropertyType;
             title = "br.com.isoftgoal.dominio.Projeto.view.projetos.title",
             members = "Projetos[nome; descricao; situacaoProjeto; *dataCadastro; dataInicio; dataPrevisaoTermino; dataTermino]:2, foto", 
             template = "@CRUD+@PAGER",
-            roles = "Admin")
+            roles = "Admin,Vip")
 })
 public class Projeto implements Serializable {
 
@@ -53,12 +54,12 @@ public class Projeto implements Serializable {
     private String descricao;
     
     @NotNull
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name="cod_situacao_projeto")
     private SituacaoProjeto situacaoProjeto = new SituacaoProjetoAberto(this);
     
     @NotNull
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="cod_usuario_criador")
     private Usuario usuarioCriador = (Usuario) Context.getCurrentUser();
 
