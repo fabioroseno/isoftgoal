@@ -5,19 +5,22 @@ import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
 import br.com.isoftgoal.dominio.Projeto;
+import br.com.isoftgoal.dominio.SituacaoProjetoCancelado;
+import br.com.isoftgoal.dominio.SituacaoProjetoConcluso;
+import br.com.isoftgoal.dominio.SituacaoProjetoEmDesenvolvimento;
+import br.com.isoftgoal.dominio.SituacaoProjetoEmValidacao;
+import br.com.isoftgoal.dominio.SituacaoProjetoReaberto;
 import br.com.isoftgoal.dominio.Usuario;
+import entities.Repository;
+import entities.annotations.ActionDescriptor;
 import entities.annotations.EntityDescriptor;
 
 @Entity
 @Table(name = "situacoes_projeto")
-@NamedQueries({
-	@NamedQuery(name = "ChecarSituacao", query = " From SituacaoProjeto sp Where sp.codSituacaoProjeto = :codSituacaoProjeto ")})
 @EntityDescriptor(hidden = true)
 public abstract class SituacaoProjeto implements Serializable {
 
@@ -26,6 +29,7 @@ public abstract class SituacaoProjeto implements Serializable {
 	public SituacaoProjeto(Integer codSituacaoProjeto, String descricao) {
 		this.codSituacaoProjeto = codSituacaoProjeto;
 		this.descricao = descricao;
+		insertsSituacoes();
 	}
 
 	@Id
@@ -49,6 +53,23 @@ public abstract class SituacaoProjeto implements Serializable {
 	public abstract void cancelar();
 	
 	public abstract void reabrir();
+
+    @ActionDescriptor(preValidate = false)
+	private void insertsSituacoes() {
+		if (Repository.queryCount(" From SituacaoProjetoAberto sp Where sp.descricao = :descricao ") == 0) {
+			Repository.save(this);
+			SituacaoProjeto situacaoEmDesenvolvimento = new SituacaoProjetoEmDesenvolvimento();
+			Repository.save(situacaoEmDesenvolvimento);
+			SituacaoProjeto situacaoProjetoEmValidacao = new SituacaoProjetoEmValidacao();
+			Repository.save(situacaoProjetoEmValidacao);
+			SituacaoProjeto situacaoProjetoConcluso = new SituacaoProjetoConcluso();
+			Repository.save(situacaoProjetoConcluso);
+			SituacaoProjeto situacaoProjetoCancelado = new SituacaoProjetoCancelado();
+			Repository.save(situacaoProjetoCancelado);
+			SituacaoProjeto situacaoProjetoReaberto = new SituacaoProjetoReaberto();
+			Repository.save(situacaoProjetoReaberto);
+		}
+	}
 	
 	public Integer getCodSituacaoProjeto() {
 		return codSituacaoProjeto;

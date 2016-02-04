@@ -1,5 +1,7 @@
 package br.com.isoftgoal.dominio;
 
+import java.io.Serializable;
+
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
@@ -9,8 +11,10 @@ import br.com.isoftgoal.dominio.abstracts.SituacaoProjeto;
 @Entity
 @DiscriminatorValue("Cancelado")
 @EntityDescriptor(hidden = true)
-public class SituacaoProjetoCancelado extends SituacaoProjeto {
+public class SituacaoProjetoCancelado extends SituacaoProjeto implements Serializable {
 	
+	private static final long serialVersionUID = 1L;
+
 	public SituacaoProjetoCancelado() {
 		super(5, "Cancelado");
 	}

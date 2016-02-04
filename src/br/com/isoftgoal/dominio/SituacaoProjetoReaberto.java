@@ -1,5 +1,7 @@
 package br.com.isoftgoal.dominio;
 
+import java.io.Serializable;
+
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
@@ -9,8 +11,10 @@ import br.com.isoftgoal.dominio.abstracts.SituacaoProjeto;
 @Entity
 @DiscriminatorValue("Reaberto")
 @EntityDescriptor(hidden = true)
-public class SituacaoProjetoReaberto extends SituacaoProjeto {
+public class SituacaoProjetoReaberto extends SituacaoProjeto implements Serializable {
 	
+	private static final long serialVersionUID = 1L;
+
 	public SituacaoProjetoReaberto() {
 		super(6, "Reaberto");
 	}
